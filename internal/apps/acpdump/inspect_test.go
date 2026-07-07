@@ -195,8 +195,6 @@ func runACPDumpHelper(stdin io.Reader, stdout io.Writer) {
 			writeHelperResponse(stdout, req.ID, map[string]any{
 				"sessionId": "session-1",
 			})
-		case "session/set_model":
-			writeHelperResponse(stdout, req.ID, map[string]any{})
 		case "session/set_mode":
 			writeHelperResponse(stdout, req.ID, map[string]any{})
 		default:

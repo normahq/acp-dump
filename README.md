@@ -26,7 +26,7 @@ against it.
 | Model and mode discovery | Shows available session models and modes when the provider exposes them. |
 | JSON output | Emits machine-readable output for scripts, CI checks, and debugging artifacts. |
 | Quiet by default | Keeps inspector lifecycle logs out of the result unless `--debug` is enabled. |
-| Provider agnostic | Works with OpenCode, Gemini ACP, and any executable that speaks ACP over stdio. |
+| Provider agnostic | Works with OpenCode, Codex, Claude Code, Pi, and any executable that speaks ACP over stdio. |
 
 ## Try It
 
@@ -47,7 +47,9 @@ Inspect an ACP server:
 ```sh
 acp-dump -- opencode acp
 acp-dump --json -- opencode acp
-acp-dump --debug -- gemini --acp
+acp-dump -- npx -y @normahq/codex-acp-bridge@latest
+acp-dump -- npx -y @zed-industries/claude-code-acp@latest
+acp-dump --debug -- npx -y pi-acp
 ```
 
 ## Provider Commands
@@ -55,7 +57,9 @@ acp-dump --debug -- gemini --acp
 | Provider | Command |
 | --- | --- |
 | OpenCode | `acp-dump -- opencode acp` |
-| Gemini ACP | `acp-dump -- gemini --acp` |
+| Codex | `acp-dump -- npx -y @normahq/codex-acp-bridge@latest` |
+| Claude Code | `acp-dump -- npx -y @zed-industries/claude-code-acp@latest` |
+| Pi | `acp-dump -- npx -y pi-acp` |
 | Generic ACP | `acp-dump -- <acp-server-cmd> [args...]` |
 
 The `--` separator is required. Arguments before `--` are treated as
