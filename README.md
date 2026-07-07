@@ -1,57 +1,94 @@
 # acp-dump
 
-Inspect any ACP server before wiring it into your agent workflow.
+[![test](https://github.com/normahq/acp-dump/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/normahq/acp-dump/actions/workflows/test.yml)
+[![lint](https://github.com/normahq/acp-dump/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/normahq/acp-dump/actions/workflows/lint.yml)
+[![security](https://github.com/normahq/acp-dump/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/normahq/acp-dump/actions/workflows/security.yml)
+[![release](https://github.com/normahq/acp-dump/actions/workflows/omnidist-release.yml/badge.svg)](https://github.com/normahq/acp-dump/actions/workflows/omnidist-release.yml)
+[![npm](https://img.shields.io/npm/v/@normahq/acp-dump)](https://www.npmjs.com/package/@normahq/acp-dump)
+[![License](https://img.shields.io/github/license/normahq/acp-dump)](LICENSE)
+[![Version](https://img.shields.io/github/v/tag/normahq/acp-dump?label=version)](https://github.com/normahq/acp-dump/tags)
 
-`acp-dump` inspects any stdio ACP server command and prints initialize/session details.
+**Inspect ACP agents before wiring them into your workflow.**
 
-## Installation
+`acp-dump` starts any stdio Agent Client Protocol (ACP) server command and
+prints the initialize/session data you need to trust, debug, or compare it.
 
-Global install (distributed via npm):
+Use it when an ACP provider says it supports models, modes, auth, sessions, or
+capabilities, and you want to see exactly what it reports before building
+against it.
 
-```bash
+## What You Get
+
+| Capability | Behavior |
+| --- | --- |
+| ACP preflight | Starts a stdio ACP server command and initializes a session. |
+| Capability inventory | Prints protocol version, agent capabilities, auth methods, and session details. |
+| Model and mode discovery | Shows available session models and modes when the provider exposes them. |
+| JSON output | Emits machine-readable output for scripts, CI checks, and debugging artifacts. |
+| Quiet by default | Keeps inspector lifecycle logs out of the result unless `--debug` is enabled. |
+| Provider agnostic | Works with OpenCode, Gemini ACP, and any executable that speaks ACP over stdio. |
+
+## Try It
+
+Install globally:
+
+```sh
 npm install -g @normahq/acp-dump@latest
 ```
 
-One-off run with npx (no global install):
+Run once with `npx`:
 
-```bash
+```sh
 npx @normahq/acp-dump@latest -- <acp-server-cmd> [args...]
 ```
 
-## Run
+Inspect an ACP server:
 
-```bash
-acp-dump -- <acp-server-cmd> [args...]
-```
-
-Examples:
-
-```bash
+```sh
 acp-dump -- opencode acp
 acp-dump --json -- opencode acp
-acp-dump --debug -- opencode acp
+acp-dump --debug -- gemini --acp
 ```
 
-## Flags
+## Provider Commands
 
-- `--json`: print machine-readable JSON output.
-- `--debug`: enable debug logs for the inspector.
+| Provider | Command |
+| --- | --- |
+| OpenCode | `acp-dump -- opencode acp` |
+| Gemini ACP | `acp-dump -- gemini --acp` |
+| Generic ACP | `acp-dump -- <acp-server-cmd> [args...]` |
+
+The `--` separator is required. Arguments before `--` are treated as
+`acp-dump` flags; arguments after it are passed to the ACP server command.
 
 ## Output
 
 Human-readable output includes:
 
-- agent name/version
+- agent name and version
 - protocol version
 - ACP capabilities
 - auth methods
 - session id
-- available session modes/models (if provided by the server)
+- available session modes and models when provided by the server
 
-## Notes
+Use `--json` when you want stable output for scripts, test fixtures, issue
+reports, or CI logs.
 
-- `--` is required. Arguments before `--` are rejected.
-- By default, command output is result-focused (no inspector debug/info logs).
+## Use Cases
+
+- Verify a provider's ACP surface before connecting it to an agent runtime.
+- Compare model, mode, auth, and capability metadata across ACP providers.
+- Capture a compact diagnostic artifact for bug reports.
+- Check whether a local command is actually speaking ACP over stdio.
+
+## Flags
+
+| Flag | Purpose |
+| --- | --- |
+| `--json` | Print machine-readable JSON output. |
+| `--debug` | Enable debug logs for the inspector. |
+| `-h`, `--help` | Show command help. |
 
 ## Repository
 
