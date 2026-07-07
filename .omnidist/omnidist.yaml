@@ -1,0 +1,39 @@
+profiles:
+  acp-dump:
+    tool:
+      name: acp-dump
+      main: ./cmd/acp-dump
+    readme-path: ./README.md
+    version:
+      source: fixed
+      fixed: 0.0.4
+    targets:
+      - os: darwin
+        arch: amd64
+      - os: darwin
+        arch: arm64
+      - os: linux
+        arch: amd64
+      - os: linux
+        arch: arm64
+      - os: windows
+        arch: amd64
+    build:
+      ldflags: -s -w
+      tags: []
+      cgo: false
+    distributions:
+      npm:
+        package: '@normahq/acp-dump'
+        registry: https://registry.npmjs.org
+        access: public
+        publish-auth: trusted
+        repository-url: git+https://github.com/normahq/acp-dump.git
+        include-readme: true
+        keywords:
+          - ai
+          - llm
+          - acp
+          - agent
+          - cli
+          - dump
