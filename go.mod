@@ -1,6 +1,6 @@
 module github.com/normahq/acp-dump
 
-go 1.26.4
+go 1.26.5
 
 require (
 	github.com/coder/acp-go-sdk v0.13.5
