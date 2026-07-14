@@ -4,7 +4,7 @@ go 1.26.5
 
 require (
 	github.com/coder/acp-go-sdk v0.13.5
-	github.com/normahq/go-adk-acpagent/v2 v2.0.1
+	github.com/normahq/go-adk-acpagent/v2 v2.2.1
 	github.com/rs/zerolog v1.35.1
 	github.com/spf13/cobra v1.10.2
 )
